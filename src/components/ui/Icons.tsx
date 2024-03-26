@@ -1,16 +1,7 @@
-import {
-	BsInfoCircle,
-	BsTrash,
-	BsUpload,
-	BsX,
-	BsExclamation,
-} from "react-icons/bs";
+import { BsArrowsAngleExpand, BsArrowsCollapse } from "react-icons/bs";
 
 export const Icon = {
-	info: BsInfoCircle,
-	upload: BsUpload,
-	trash: BsTrash,
-	X: BsX,
-	exclamation: BsExclamation,
-};
+  expand: BsArrowsAngleExpand,
+  collapse: BsArrowsCollapse,
+} as const;
 export type IconName = keyof typeof Icon;
