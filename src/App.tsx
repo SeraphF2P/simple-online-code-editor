@@ -1,4 +1,7 @@
 import { Editor } from "./components/Editor";
+import { css as langCss } from "@codemirror/lang-css";
+import { html as langHtml } from "@codemirror/lang-html";
+import { javascript as langJs } from "@codemirror/lang-javascript";
 import { useLocalStorage } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 
@@ -24,24 +27,27 @@ function App() {
 
   return (
     <main className=" h-svh  text-neutral ">
-      <div className="  flex  items-center gap-1 bg-neutral-revert ">
+      <div className=" flex divide-x-2 bg-neutral-revert ">
         <Editor
-          key="xml"
-          language="xml"
+          height="50svh"
+          minWidth="60px"
+          extensions={[langHtml()]}
           displayName="HTML"
           value={html}
           onChange={setHtml}
         />
         <Editor
-          key="css"
-          language="css"
+          height="50svh"
+          minWidth="60px"
+          extensions={[langCss()]}
           displayName="CSS"
           value={css}
           onChange={setCss}
         />
         <Editor
-          key="javascript"
-          language="javascript"
+          height="50svh"
+          minWidth="60px"
+          extensions={[langJs()]}
           displayName="JS"
           value={js}
           onChange={setJs}

@@ -1,34 +1,23 @@
-import "codemirror/lib/codemirror.css";
-import "codemirror/mode/css/css";
-import "codemirror/mode/javascript/javascript";
-import "codemirror/mode/xml/xml";
-import "codemirror/theme/material.css";
 import { cn } from "../lib/cva";
 import { Btn, Icon } from "./ui";
+import { okaidia } from "@uiw/codemirror-theme-okaidia";
+import CodeMirror, { type ReactCodeMirrorProps } from "@uiw/react-codemirror";
 import { useState } from "react";
-import { Controlled as ControlledEditor } from "react-codemirror2";
 
-type EditorProps = {
-  language: string;
-  value: string;
+type EditorProps = ReactCodeMirrorProps & {
   displayName: string;
-  onChange: (val: string) => void;
 };
-export function Editor({
-  language,
-  displayName,
-  value,
-  onChange,
-}: EditorProps) {
+export function Editor({ displayName, className, ...props }: EditorProps) {
   const [open, setOpen] = useState(true);
 
   return (
     <div
-      className={cn(` flex-1`, {
-        " grow-0  ": !open,
+      className={cn(` flex-1 `, {
+        " grow-[2]   ": open,
+        className,
       })}
     >
-      <div className="flex items-center justify-between p-1">
+      <div className="p- flex items-center justify-between px-2 py-1">
         {displayName}
         <Btn variant="ghost" onClick={() => setOpen((prevOpen) => !prevOpen)}>
           {open ? (
@@ -38,20 +27,12 @@ export function Editor({
           )}
         </Btn>
       </div>
-      <ControlledEditor
-        onBeforeChange={(_editor, _data, value) => onChange(value)}
-        value={value}
-        className={cn("", {
-          " [&_.CodeMirror-scroll]:absolute [&_.CodeMirror-scroll]:!overflow-hidden":
-            !open,
+      <CodeMirror
+        className={cn("[&_.cm-content]:max-w-[300px]", {
+          " [&_.cm-content]:absolute [&_.cm-content]:!overflow-hidden ": !open,
         })}
-        options={{
-          lineWrapping: true,
-          // lint: true,
-          mode: language,
-          theme: "material",
-          lineNumbers: true,
-        }}
+        theme={okaidia}
+        {...props}
       />
     </div>
   );
